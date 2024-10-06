@@ -6,4 +6,6 @@ interface ProjetoRepository {
 
     fun findAll(): List<Projeto>
 
+    fun findById(projetoId: Int): Projeto?
+
 }

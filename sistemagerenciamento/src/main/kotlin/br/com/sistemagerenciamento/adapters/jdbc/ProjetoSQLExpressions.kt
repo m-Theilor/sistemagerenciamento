@@ -11,4 +11,14 @@ object ProjetoSQLExpressions {
         FROM projeto
     """.trimIndent()
 
+    fun sqlSelectById() = """
+        SELECT id,
+            titulo,
+            descricao,
+            status,
+            criado
+        FROM projeto
+        WHERE id = :id
+    """.trimIndent()
+
 }
