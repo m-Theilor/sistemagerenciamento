@@ -8,6 +8,6 @@ data class Tarefa(
     val titulo: String,
     val descricao: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
-    val status: StatusTarefa = StatusTarefa.NAO_REALIZADA
+    val status: TarefaStatus
 
 )

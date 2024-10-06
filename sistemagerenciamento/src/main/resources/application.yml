@@ -1,6 +1,16 @@
 spring:
+  application:
+    name:gerenciador-projetos
+  main:
+    web-application-type: servlet
+  web:
+    resources:
+      add-mappings: false
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/projetos
     username: postgres
     password: 12345
+
+server:
+  port: 8080

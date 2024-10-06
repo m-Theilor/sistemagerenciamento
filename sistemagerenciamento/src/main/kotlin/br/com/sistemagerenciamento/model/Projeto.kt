@@ -9,6 +9,5 @@ data class Projeto(
     val descricao: String,
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
     val tarefas: List<Tarefa> = ArrayList(),
-    val status: StatusProjeto = StatusProjeto.SEM_TAREFAS
-
+    val status: ProjetoStatus
 )
