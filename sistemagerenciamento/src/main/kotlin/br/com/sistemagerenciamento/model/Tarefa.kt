@@ -7,7 +7,7 @@ data class Tarefa(
     val id: Long? = null,
     val titulo: String,
     val descricao: String,
-    val dataCriacao: LocalDateTime = LocalDateTime.now(),
+    val criado: LocalDateTime = LocalDateTime.now(),
     val status: TarefaStatus
 
 )

@@ -7,7 +7,7 @@ data class Projeto(
     val id: Long? = null,
     val titulo: String,
     val descricao: String,
-    val dataCriacao: LocalDateTime = LocalDateTime.now(),
+    val criado: LocalDateTime = LocalDateTime.now(),
     val tarefas: List<Tarefa> = ArrayList(),
     val status: ProjetoStatus
 )

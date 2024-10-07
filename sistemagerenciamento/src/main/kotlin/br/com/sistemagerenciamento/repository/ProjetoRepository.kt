@@ -8,4 +8,6 @@ interface ProjetoRepository {
 
     fun findById(projetoId: Int): Projeto?
 
+    fun inserir(projeto: Projeto): Boolean
+
 }

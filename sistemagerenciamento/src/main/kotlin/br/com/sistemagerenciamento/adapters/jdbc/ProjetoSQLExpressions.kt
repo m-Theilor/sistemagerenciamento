@@ -21,4 +21,20 @@ object ProjetoSQLExpressions {
         WHERE id = :id
     """.trimIndent()
 
+    fun sqlInsertProjeto() = """
+       INSERT INTO projeto (
+           id,
+           titulo,
+           descricao,
+           status,
+           criado) 
+           VALUES (
+           :id,
+           :titulo,
+           :descricao,
+           :status,
+           :criado
+       )
+    """.trimIndent()
+
 }
