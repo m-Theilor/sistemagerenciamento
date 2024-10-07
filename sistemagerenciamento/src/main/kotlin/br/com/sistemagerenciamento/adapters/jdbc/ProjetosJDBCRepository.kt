@@ -1,8 +1,10 @@
 package br.com.sistemagerenciamento.adapters.jdbc
 
+import br.com.sistemagerenciamento.adapters.jdbc.ProjetoSQLExpressions.sqlDeleteById
 import br.com.sistemagerenciamento.adapters.jdbc.ProjetoSQLExpressions.sqlInsertProjeto
 import br.com.sistemagerenciamento.adapters.jdbc.ProjetoSQLExpressions.sqlSelectAll
 import br.com.sistemagerenciamento.adapters.jdbc.ProjetoSQLExpressions.sqlSelectById
+import br.com.sistemagerenciamento.adapters.jdbc.ProjetoSQLExpressions.sqlUpdateProjeto
 import br.com.sistemagerenciamento.model.Projeto
 import br.com.sistemagerenciamento.model.ProjetoStatus
 import br.com.sistemagerenciamento.repository.ProjetoRepository
@@ -45,17 +47,36 @@ class ProjetosJDBCRepository(
 
     override fun inserir(projeto: Projeto): Boolean {
         try {
-            val params = MapSqlParameterSource()
-            params.addValue("id", projeto.id)
-            params.addValue("titulo", projeto.titulo)
-            params.addValue("descricao", projeto.descricao)
-            params.addValue("status", projeto.status)
-            params.addValue("criado", projeto.criado)
+            val params = parametros(projeto)
             val linhasAfetadas = db.update(sqlInsertProjeto(), params)
             return linhasAfetadas > 0
 
         } catch (ex: Exception) {
             LOGGER.error {"Houve um erro ao inserir o projeto: ${ex.message}"}
+            throw ex
+        }
+    }
+
+    override fun atualizar(projeto: Projeto): Boolean {
+        try {
+            val params = parametros(projeto)
+            val linhasAfetadas = db.update(sqlUpdateProjeto(), params)
+            return linhasAfetadas > 0
+
+        } catch (ex: Exception) {
+            LOGGER.error {"Houve um erro ao atualizar o projeto: ${ex.message}"}
+            throw ex
+        }
+    }
+
+    override fun remover(projetoId: Int): Boolean {
+        try{
+            val params = MapSqlParameterSource ("id", projetoId)
+            val linhasRemovidas = db.update(sqlDeleteById(), params)
+            return linhasRemovidas == 1
+
+        } catch (ex: Exception) {
+            LOGGER.error {"Houve um erro ao remover o projeto: ${ex.message}"}
             throw ex
         }
     }
@@ -67,8 +88,19 @@ class ProjetosJDBCRepository(
             titulo = rs.getString("titulo"),
             descricao = rs.getString("descricao"),
             status = ProjetoStatus.valueOf(rs.getString("status")),
-            criado = rs.getTimestamp("criado").toLocalDateTime()
+            criado = rs.getTimestamp("criado").toLocalDateTime(),
+            tarefas = setOf()
         )
+    }
+
+    private fun parametros(projeto: Projeto): MapSqlParameterSource {
+        val params = MapSqlParameterSource()
+        params.addValue("id", projeto.id)
+        params.addValue("titulo", projeto.titulo)
+        params.addValue("descricao", projeto.descricao)
+        params.addValue("status", projeto.status)
+        params.addValue("criado", projeto.criado)
+        return params
     }
 
 }

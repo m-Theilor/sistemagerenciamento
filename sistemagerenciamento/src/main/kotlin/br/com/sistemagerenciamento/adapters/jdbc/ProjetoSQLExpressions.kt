@@ -37,4 +37,17 @@ object ProjetoSQLExpressions {
        )
     """.trimIndent()
 
+    fun sqlUpdateProjeto() = """
+        UPDATE projeto
+        set titulo = :titulo,
+            descricao = :descricao,
+            status = :status,
+            criado = :criado
+        WHERE id = :id
+    """.trimIndent()
+
+    fun sqlDeleteById() = """
+        DELETE FROM projeto WHERE id = :id
+    """.trimIndent()
+
 }

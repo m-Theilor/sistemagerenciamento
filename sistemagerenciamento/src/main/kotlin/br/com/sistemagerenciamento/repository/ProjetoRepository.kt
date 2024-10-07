@@ -10,4 +10,8 @@ interface ProjetoRepository {
 
     fun inserir(projeto: Projeto): Boolean
 
+    fun atualizar(projeto: Projeto): Boolean
+
+    fun remover(projetoId: Int): Boolean
+
 }

@@ -26,4 +26,16 @@ class ProjetoService(
         return findById(projetoDomain.id?.toInt() ?: throw IllegalArgumentException("ID inválido"))
     }
 
+    fun atualizar(projeto: ProjetoUpdateCommand, projetoId: Int): Projeto{
+        projetoRepository.findById(projetoId = projetoId) ?: throw ProjetoNaoEncontradoException(projetoId)
+
+        projetoRepository.atualizar(projeto.toProjeto(projetoId))
+        return findById(projetoId = projetoId)
+    }
+
+    fun remover(projetoId: Int){
+        projetoRepository.findById(projetoId = projetoId) ?: throw ProjetoNaoEncontradoException(projetoId)
+        projetoRepository.remover(projetoId)
+    }
+
 }

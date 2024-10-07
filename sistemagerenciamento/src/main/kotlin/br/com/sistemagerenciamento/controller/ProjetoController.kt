@@ -3,6 +3,7 @@ package br.com.sistemagerenciamento.controller
 
 import br.com.sistemagerenciamento.model.Projeto
 import br.com.sistemagerenciamento.service.ProjetoCreateCommand
+import br.com.sistemagerenciamento.service.ProjetoUpdateCommand
 import org.springframework.http.ResponseEntity
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations
 import org.springframework.web.bind.annotation.*
@@ -26,4 +27,13 @@ class ProjetoController(
         return projetoHandler.inserir(projeto)
     }
 
+    @PutMapping("/projetos/{projetoId}")
+    fun atualizar(@RequestBody projeto: ProjetoUpdateCommand, @PathVariable projetoId: Int): ResponseEntity<Projeto>{
+        return projetoHandler.atualizar(projeto, projetoId)
+    }
+
+    @DeleteMapping("/projetos/{projetoId}")
+    fun remover(@PathVariable projetoId: Int): ResponseEntity<String>{
+        return projetoHandler.remover(projetoId)
+    }
 }
